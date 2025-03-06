@@ -14,10 +14,9 @@ As with other projects, we start by importing our dependencies, the necessary li
 
 Our data is imported as a CSV from a static edx.com site ("https://static.bc-edx.com/data/dl-1-2/m21/lms/starter/charity_data.csv") and transformed into a dataframe using Pandas.
 
-We start by dropping non-essential columns such as EIN (ID # per organization) and NAME (name of each organization) as this differs by organization and will not tell us anything useful in terms of success. We then preview the number of unique values for each of the other columns and determine that there are 17 types of applications, 71 different Income Classifications, 5 different use cases and other determining variables (see list below). Within Application type, T3 is the most common at 27k applications, followed by T4 (1.5k). 
+We start by dropping non-essential columns such as EIN (ID # per organization) and NAME (name of each organization) as this differs by organization and will not tell us anything useful in terms of success. We then preview the number of unique values for each of the other columns and determine that there are 17 types of applications, 71 different Income Classifications, 5 different use cases and other determining variables (see list below). 
 
 **Column Types & Unique values:**
-
 APPLICATION_TYPE            17
 AFFILIATION                  6
 CLASSIFICATION              71
@@ -28,3 +27,6 @@ INCOME_AMT                   9
 SPECIAL_CONSIDERATIONS       2
 ASK_AMT                   8747
 IS_SUCCESSFUL                2
+
+
+For columns like Application Type and Income Classification where there are a significant amount of unique variables, it is useful to reduce noise by setting a cutoff value for uniques with low counts, bucketing them into "Other". Within Application type, T3 is the most common at 27k applications, followed by T4 (1.5k), while there are other Application types with only 1-3 unique values. Within Classification, C1000 is the most common at 17,326 organizations followed by C2000 at 6,074, while there are other Income Classification types that only have 1 unique value. 
