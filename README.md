@@ -1,6 +1,8 @@
 # deep-learning-challenge
 Challenge for Module 21 - Neural Networks/Deep Learning
 
+**Overview of the analysis**
+
 This challenge utilizes data from Alphabet Soup, a non-profit that helps organizations receive funding. The data contains historical information on 34,000 organizations that have received funding from Alphabet Soup, with information on Applicant Type, Industry Sector, Govt Org Classification, Use case for funding, Organization Type, Active Status, Income Classification, Special Considerations for applications, Funding amount requested **(numerical)**, and Whether or not the money was used effectively **(binary)**. A deep learning model will be used to predict the binary classifier (was/was not successful) for future funding projects based on historical data. 
 
 # Data Upload and Preparation: 
@@ -35,21 +37,17 @@ As a final preparation step, we use the function **get_dummies** to convert all 
 
 # Creating and Evaluating the Model:
 
+We initiate the model by stating the number of input features (length of the X Training set), number of nodes in the initial layer (80) and number of nodes in the second hidden layer (30). The Output Layer is always 1 node. This model is a Keras Sequential model, which we call to using nn = tf.keras.models.Sequential(). Each layer is added, and a summary provides the output (pictured below): 
+![image](https://github.com/user-attachments/assets/a4239f76-c556-4fb0-97d0-2e9af081f29b)
 
-Overview of the analysis: Explain the purpose of this analysis.
+Each layer is compiled using the **.compile()** function with the typical inputs: loss="binary_crossentropy", optimizer="adam", metrics=["accuracy"]. It is then trained using the X,y training variables, and then evaluated for accuracy using the X,y testing variables. The F1 (accuracy) score provides us with a percentage of how many times the machine learning model correctly predicted the testing variables.
 
-Results: Using bulleted lists and images to support your answers, address the following questions:
+# Results:
 
-Data Preprocessing
-
-What variable(s) are the target(s) for your model?
-What variable(s) are the features for your model?
-What variable(s) should be removed from the input data because they are neither targets nor features?
-Compiling, Training, and Evaluating the Model
-
-How many neurons, layers, and activation functions did you select for your neural network model, and why?
-Were you able to achieve the target model performance?
-What steps did you take in your attempts to increase model performance?
-Summary: Summarize the overall results of the deep learning model. Include a recommendation for how a different model could solve this classification problem, and then explain your recommendation.
-
+- The target variable is "IS_SUCCESSFUL" - which historically states whether or not a business venture that received funding was successful. This is the variable we are trying to predict for future applications to prevent funding a potentially unsuccessful venture.
+- This models' features are all columns besides "IS_SUCCESSFUL". We could potentially run a model that focuses on one to three variables (application type, ask amount, classification type) to reduce noise and prevent model confustion.
+- The model is comprised of 3 layers with 110 (75 initial layer, 35 second layer) total nuerons and 50 epochs in the outer layer were used as these provided the highest possible accuracy score after multiple iterations.
+- To get the highest possible accuracy score, I adjusted variables such as number of layers, number of neurons, number of epochs, and type of activation (sigmoid vs. relu vs. tanh).
+- The overall accuracy score after multiple iterations is relatively low **72.4%**. This means that there are multiple unnecessary fields that may be causing "noise" in the model. Users can use functions in Numpy to calculate Outliers and remove to reduce noise.
+- The **Keras Tuner** can also be used in future analyses to prevent over-fitting the model & to provide us with the best possible tuner (number of neurons and layers that would provide the highest accuracy score). 
 
